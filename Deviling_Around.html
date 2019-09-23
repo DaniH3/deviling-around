@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Deviling Around</title>
+        <style>
+          *,*:before, *:after
+          {
+            box-sizing: border-box;
+          }
+            html,body
+            {
+                height: 100%;
+                width: 100%;
+                overflow: hidden;
+            }
+
+            .main
+            {
+                padding: 1px 0;
+                width: 100%;
+                height: 100%;
+                background: #fff;
+                background-image: url("https://www.firststar.org/wp-content/uploads/2019/01/ASU-Summer-Session-cropped.jpg");
+                background-size: cover;
+            }
+
+            #login
+            {
+                margin: 90px auto;
+                max-width: 300px;
+                min-height: 600px;
+                background-color: rgba(10,10,10,.68);
+            }
+
+            .logo
+            {
+              padding: 10px;
+              height: 205px;
+              width: 100%;
+              position: relative;
+              text-align: center;
+            }
+
+            .login-form
+            {     
+              padding: 110px 20px 20px;
+              height: 200px;
+              width: 100%;
+            }
+
+            .user-input
+            {
+                position: relative;
+                margin-bottom: 10px;
+                border-bottom: 1px solid white;
+                height: 40px;
+            }
+
+            .pass-input
+            {
+                position: relative;
+                margin-bottom: 10px;
+                height: 40px;
+                border-bottom: 1px solid white;
+            }
+
+            .retype-p
+            {
+                position: relative;
+                margin-bottom: 10px;
+                height: 40px;
+                border-bottom: 1px solid white;
+            }
+            
+            .email-input
+            {
+              position: relative;
+              margin-bottom: 10px;
+              border-bottom: 1px solid white;
+              height: 40px;
+            }
+
+            input
+            {
+                position: absolute;
+                height: 30px;
+                margin: 15px 0;
+                width: 195px;
+                background: transparent;
+                border:none;
+            }
+
+            input:focus, button:focus
+            {
+              outline: none;
+            }
+
+            input[type=text],input[type=password]
+            {
+              color: white;
+            }
+
+
+            button
+            {
+                font-weight: 700;
+                width: 240px;
+                height: 40px;
+                margin: 20px 20px 5px;
+                color:white;
+                background:gold;
+                border-radius: 20px;
+                border:none;
+            }
+
+            button:hover
+            {
+              color:greenyellow;
+            }
+
+            #sign-up-button
+            {
+              background-color:maroon;
+            }
+            
+            #register-button
+            {
+              display: none;
+              margin: 15px 10px;
+            }
+
+            .register-form
+            {
+                padding: 110px 20px 20px;
+                height: 200px;
+                width: 100%;
+                display: none;
+            }
+
+            span
+            {
+              font-size: 13px;
+              margin: 40px auto;
+              position: absolute;
+            }
+
+            #pswd_info
+            {
+              position:absolute;
+              bottom:44px;
+              right:305px;
+              width:250px;
+              padding:10px;
+              background-color: rgba(10,10,10,.68);
+              font-size:.875em;
+            }
+            
+            ul
+            {
+              list-style-type: none;
+            }
+
+            #pswd_info h4 
+            {
+              color: white;
+              margin:0 0 10px 0;
+              padding:0;
+              font-weight:normal;
+            }
+
+            #pswd_info
+            {
+              display: none;
+            }
+
+            .invalid 
+            {
+              padding-left:22px;
+              line-height:24px;
+              color:#ec3f41;
+            }
+            .valid 
+            {
+              padding-left:22px;
+              line-height:24px;
+              color:#3a7d34;
+            }
+
+        </style>
+    </head>
+
+<body>
+<div class="main">
+    <div id="login">
+          <div class="logo">
+            <img src="https://brandguide.asu.edu/sites/default/files/resize/styles/panopoly_image_original/public/asu_pitchfork_gold_maroon_gold-175x323.png?itok=jg1ADRb7">
+          </div>
+        <div class="login-form">
+            <div class="user-input">
+              <input type="text" id="user" placeholder="Username/Email" required autofocus autocomplete="off"></input>
+            </div>
+            <div class="pass-input">
+              <input type="password" id="password" placeholder="Password" required></input>
+             </div>
+          </div>
+
+          <div class="buttons">
+            <button id="login-button" type="submit">Log In</button>
+            <button id="sign-up-button" type="submit"><a href="#"></a>Sign up</button>
+          </div>
+
+        <div class="register-form">
+          <div class="email-input">
+            <input type="text" id="email" placeholder="Email" required autofocus autocomplete="off"></input>
+          </div>
+          <div class="user-input">
+              <input type="text" id="username" placeholder="Username" required autocomplete="off"></input>
+          </div>
+          <div class="pass-input">
+              <input type="password" id="password1" placeholder="Password" required></input>
+          </div>
+          <div class="retype-p">
+              <input type="password" id="password2" placeholder="Retype Password" required></input>
+              <span id='message'></span>
+          </div>
+          <div id="pswd_info">
+              <h4>Password must meet the following requirements:</h4>
+              <ul>
+                  <li id="special" class="invalid">At least <strong>one special character</strong></li>
+                  <li id="capital" class="invalid">At least <strong>one capital letter</strong></li>
+                  <li id="number" class="invalid">At least <strong>one number</strong></li>
+                  <li id="length" class="invalid">Be at least <strong>6 characters</strong></li>
+              </ul>
+          </div>          
+            <button id="register-button" type="submit">Register</button>
+        </div> 
+    </div>
+</div>
+
+
+      <script src='https://code.jquery.com/jquery-3.4.1.min.js'></script>
+      <script src = "script.js"></script>
+
+      <!--Animation Script-->
+      <script>
+        $('#sign-up-button').click(function()
+        {
+          $('.login-form').animate({height: "toggle", opacity: "toggle"}, "fast");
+          $('.register-form').toggle();
+          $('#register-button').toggle();
+          $('#login-button').toggle({display: "none"});
+          $('#sign-up-button').toggle({display: "none"});
+        });
+      </script>
+      <!-------------------->
+
+      <!--Password Script--->
+      <script>
+          $('input[type=password]').keyup(function() 
+          {
+            
+            var upperCase= new RegExp('[A-Z]');
+            var specialCharacter= new RegExp('[*@!#%&()^~{}]+');
+            var numbers = new RegExp('[0-9]');
+
+          //Length
+          if($(this).val().length < 6 )  
+          {
+            $('#length').removeClass('valid').addClass('invalid');
+          }
+          else
+          {
+            $('#length').removeClass('invalid').addClass('valid');
+          }
+
+          //Letter
+          if($(this).val().match(specialCharacter))
+          {
+            $('#special').removeClass('invalid').addClass('valid');
+          }
+          else
+          {
+            $('#special').removeClass('valid').addClass('invalid');
+          }
+
+          //Capital letter
+          if($(this).val().match(upperCase))
+          {
+            $('#capital').removeClass('invalid').addClass('valid');
+          }
+          else
+          {
+            $('#capital').removeClass('valid').addClass('invalid');
+          }
+          
+          //Number
+          if($(this).val().match(numbers))
+          {
+            $('#number').removeClass('invalid').addClass('valid');
+          }
+          else
+          {
+            $('#number').removeClass('valid').addClass('invalid');
+          }
+          }).focus(function()
+          { 
+            $('#pswd_info').show();
+          }).blur(function() 
+          {
+            $('#pswd_info').hide();
+          })
+
+      </script>
+      <!------------------->
+
+      <!--Matching Script-->
+      <script>
+      $('#password1, #password2').on('keyup', function () 
+      {
+        if ($('#password1').val() == $('#password2').val()) 
+        {
+          $('#message').html('Matching').css('color', 'green');
+        } 
+        else 
+          $('#message').html('Not Matching').css('color', 'red');
+      });
+      </script>
+      <!------------------->
+
+      <!--TEST-->
+      <script>
+        $('#register-button').click(function()
+        {
+          var email = $("#email").val();
+          var username = $("#username").val();
+          var password = $('#password1').val();
+          var password2 = $('#password2').val();
+
+          
+
+        });
+      
+      
+      </script>
+      
+ </body>
+</html>
