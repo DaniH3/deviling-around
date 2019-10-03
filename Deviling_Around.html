@@ -219,12 +219,14 @@
           </div>
           <div class="user-input">
               <input type="text" name="username" id="username" placeholder="Username" required autocomplete="off"></input>
+              <span id="usernameResult"></span>
+              <span id="usernameLoading"></span>
           </div>
           <div class="pass-input">
-              <input type="password" name="password" id="password1" placeholder="Password" required></input>
+              <input type="password" name="pswd" id="pswd" placeholder="Password" required></input>
           </div>
           <div class="retype-p">
-              <input type="password" name="password2" id="password2" placeholder="Retype Password" required></input>
+              <input type="password" name="pswd2" id="pswd2" placeholder="Retype Password" required></input>
               <span id='message'></span>
           </div>
           <div id="pswd_info">
@@ -237,13 +239,12 @@
               </ul>
           </div>          
             <button id="register-button" type="submit" value="send">Register</button>
-        </div> 
+        </form> 
     </div>
 </div>
 
 
       <script src = 'https://code.jquery.com/jquery-3.4.1.min.js'></script>
-      <script src = "script.js"></script>
       <script src = "https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 
       <script>
@@ -324,9 +325,9 @@
 
       <!--Matching Script-->
       <script>
-      $('#password1, #password2').on('keyup', function () 
+      $('#pswd, #pswd2').on('keyup', function () 
       {
-        if ($('#password1').val() == $('#password2').val()) 
+        if ($('#pswd').val() == $('#pswd2').val()) 
         {
           $('#message').html('Matching').css('color', 'green');
         } 
@@ -350,6 +351,8 @@
         else
         {
           alert("Please use your current ASU email address.");
+          $('#email').focus();
+          return false;
         }
       });
       
@@ -357,48 +360,45 @@
 
       <!--TEST-->
       <script>
-        function ajaxFunction(){
-          var ajaxRequest;  // The variable that makes Ajax possible!
-          try
+        $(document).ready(function() 
+        {
+          $('#username').keyup(function()
+        {
+          $.post("https://localhost/username-check.php",
+          {username: $('#username').val()
+          }, function(response)
           {
-            ajaxRequest = new XMLHttpRequest();
-          }catch (e)
-          {
-          try
-          {
-            ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
-          }
-          catch (e) 
-          {
-          try
-          {
-            ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
-          }
-          catch (e)
-          {
-            alert("Your browser broke!");
-            return false;
-          }
+            $('#usernameResult').fadeOut();
+            setTimeout("Userresult('usernameResult','"+escape(response)+"')", 350)
+        });
+          return false;
+        });
+        });
+         
+        function Userresult(id,response)
+        {
+          $('#usernameLoading').hide();
+          $('#'+id).html(unescape(response));
+          $('#'+id).fadeIn();
         }
-          }}
-      
- 
+
         $('#register-button').click(function()
         {  
           var email = $('#email').val();
           var username = $('#username').val();
-          var password1 = $('#password1').val();
-          var password2 = $('#password2').val();
-          var myData = {"email": email, "username": username, "password1": password1, "password2": password2};
+          var pswd = $('#pswd').val();
+          var pswd2 = $('#pswd2').val();
+          var myData = {"email": email, "username": username, "pswd": pswd, "pswd2": pswd2};
+          $(myData).serialize();
 
           $.ajax(
             {
-              url:"test.php",
+              url:"https://localhost/user-data.php",
               type: "POST",
               data: myData,
-              success: function (data)
+              success: function ()
               {
-                alert("Success");
+
               }
             });
         });
