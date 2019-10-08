@@ -17,17 +17,6 @@ $input = "INSERT INTO users (email, username, pswd) VALUES ('$email', '$username
 
 mysqli_query($connection, $input);
 
-// if($input)
-// {
-//     echo("SUCCESS");
-//     echo("'$email','$dbhost','$db'");
-// }
-// else
-// {
-//     echo("failed");
-// }
-
-
 $connection->close();
 header("Location: https://localhost/deviling_around.html");
 ?>
