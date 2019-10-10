@@ -45,7 +45,7 @@
               text-align: center;
             }
 
-            .login-form
+            #login-form
             {     
               padding: 110px 20px 20px;
               height: 200px;
@@ -110,7 +110,7 @@
                 font-weight: 700;
                 width: 240px;
                 height: 40px;
-                margin: 20px 20px 5px;
+                margin: 20px 10px 5px;
                 color:white;
                 background:gold;
                 border-radius: 20px;
@@ -133,7 +133,7 @@
               margin: 15px 10px;
             }
 
-            .register-form
+            #register-form
             {
                 padding: 110px 20px 20px;
                 height: 200px;
@@ -150,8 +150,8 @@
 
             #pswd_info
             {
-              position:absolute;
-              bottom:44px;
+              position: absolute;
+              bottom:45px;
               right:305px;
               width:250px;
               padding:10px;
@@ -190,6 +190,49 @@
               color:#3a7d34;
             }
 
+            .alert 
+            {
+            position: relative;
+            text-align: center;
+            top: -490px;
+            padding: 20px 10px;
+            background-color:green;
+            color: white;
+            letter-spacing: 2px;
+            display: none;
+            }
+
+            #error
+            {
+            position: relative;
+            text-align: center;
+            top: -490px;
+            padding: 20px 10px;
+            background-color:red;
+            color: white;
+            letter-spacing: 2px;
+            display: none;
+            }
+
+            .closebtn 
+            {
+            position: relative;
+            float: right;
+            bottom: 40px;
+            margin-left: 10px;
+            color: white;
+            font-weight: bold;
+            font-size: 22px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+            }
+
+            .closebtn:hover 
+            {
+            color: black;
+            } 
+
         </style>
     </head>
 
@@ -197,34 +240,41 @@
 <div class="main">
     <div id="login">
           <div class="logo">
-            <img src="https://brandguide.asu.edu/sites/default/files/resize/styles/panopoly_image_original/public/asu_pitchfork_gold_maroon_gold-175x323.png?itok=jg1ADRb7">
+            <img src="https://bit.ly/2odhXRC">
           </div>
-        <div class="login-form">
+        <form id="login-form" action="https://localhost/login.php" method="POST">
             <div class="user-input">
-              <input type="text" id="user" placeholder="Username/Email" required autofocus autocomplete="off"></input>
+              <input type="text" name="user" id="user" placeholder="Username/Email" required autofocus autocomplete="off"></input>
             </div>
             <div class="pass-input">
-              <input type="password" id="password" placeholder="Password" required></input>
+              <input type="password" name="password" id="password" placeholder="Password" required></input>
              </div>
-          </div>
+            <button id="login-button" type="submit" value="send">Log In</button>
+            <button id="sign-up-button" type="button"><a href="#"></a>Sign up</button>
+        </form>
+        <div class="alert">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            Successfully Logged In!
+        </div>
+        <div class="alert" id="error">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            Incorrect Username/Email or Password!
+        </div>
 
-          <div class="buttons">
-            <button id="login-button" type="submit">Log In</button>
-            <button id="sign-up-button" type="submit"><a href="#"></a>Sign up</button>
-          </div>
-
-        <form class="register-form" method="POST">
+        <form id="register-form" method="POST">
           <div class="email-input">
             <input type="text" name="email" id="email" placeholder="Email" required autofocus autocomplete="off"></input>
           </div>
           <div class="user-input">
               <input type="text" name="username" id="username" placeholder="Username" required autocomplete="off"></input>
+              <span id="usernameResult"></span>
+              <span id="usernameLoading"></span>
           </div>
           <div class="pass-input">
-              <input type="password" name="password" id="password1" placeholder="Password" required></input>
+              <input type="password" name="pswd" id="pswd" placeholder="Password" required></input>
           </div>
           <div class="retype-p">
-              <input type="password" name="password2" id="password2" placeholder="Retype Password" required></input>
+              <input type="password" name="pswd2" id="pswd2" placeholder="Retype Password" required></input>
               <span id='message'></span>
           </div>
           <div id="pswd_info">
@@ -237,13 +287,12 @@
               </ul>
           </div>          
             <button id="register-button" type="submit" value="send">Register</button>
-        </div> 
+        </form> 
     </div>
 </div>
 
 
       <script src = 'https://code.jquery.com/jquery-3.4.1.min.js'></script>
-      <script src = "script.js"></script>
       <script src = "https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 
       <script>
@@ -254,8 +303,8 @@
       <script>
         $('#sign-up-button').click(function()
         {
-          $('.login-form').animate({height: "toggle", opacity: "toggle"}, "fast");
-          $('.register-form').toggle();
+          $('#login-form').animate({height: "toggle", opacity: "toggle"}, "fast");
+          $('#register-form').toggle();
           $('#register-button').toggle();
           $('#login-button').toggle({display: "none"});
           $('#sign-up-button').toggle({display: "none"});
@@ -324,9 +373,9 @@
 
       <!--Matching Script-->
       <script>
-      $('#password1, #password2').on('keyup', function () 
+      $('#pswd, #pswd2').on('keyup', function () 
       {
-        if ($('#password1').val() == $('#password2').val()) 
+        if ($('#pswd').val() == $('#pswd2').val()) 
         {
           $('#message').html('Matching').css('color', 'green');
         } 
@@ -350,6 +399,8 @@
         else
         {
           alert("Please use your current ASU email address.");
+          $('#email').focus();
+          return false;
         }
       });
       
@@ -357,50 +408,81 @@
 
       <!--TEST-->
       <script>
-        function ajaxFunction(){
-          var ajaxRequest;  // The variable that makes Ajax possible!
-          try
+        $(document).ready(function() 
+        {
+          $('#username').keyup(function()
+        {
+          $.post("https://localhost/username-check.php",
+          {username: $('#username').val()
+          }, function(response)
           {
-            ajaxRequest = new XMLHttpRequest();
-          }catch (e)
-          {
-          try
-          {
-            ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
-          }
-          catch (e) 
-          {
-          try
-          {
-            ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
-          }
-          catch (e)
-          {
-            alert("Your browser broke!");
-            return false;
-          }
+            $('#usernameResult').fadeOut();
+            setTimeout("Userresult('usernameResult','"+escape(response)+"')", 350)
+        });
+          return false;
+        });
+        });
+         
+        function Userresult(id,response)
+        {
+          $('#usernameLoading').hide();
+          $('#'+id).html(unescape(response));
+          $('#'+id).fadeIn();
         }
-          }}
-      
- 
+
         $('#register-button').click(function()
         {  
           var email = $('#email').val();
           var username = $('#username').val();
-          var password1 = $('#password1').val();
-          var password2 = $('#password2').val();
-          var myData = {"email": email, "username": username, "password1": password1, "password2": password2};
+          var pswd = $('#pswd').val();
+          var pswd2 = $('#pswd2').val();
+          var myData = {"email": email, "username": username, "pswd": pswd, "pswd2": pswd2};
+
+          $(myData).serialize();
 
           $.ajax(
             {
-              url:"test.php",
+              url:"https://localhost/user-data.php",
               type: "POST",
               data: myData,
-              success: function (data)
+              success: function ()
               {
-                alert("Success");
+
               }
             });
+        });
+
+        $('#login-button').click(function()
+        {
+          var email, username = $('#user').val();
+          var pswd = $('#password').val();
+          var input = {"user": email, "user": username, "password": pswd};
+
+          $(input).serialize();
+
+          $.ajax(
+          {
+            url:"https://localhost/login.php",
+            type: "POST",
+            data: input,
+            success: function(response)
+            {
+            if($.trim(response) == 'ok')
+            {
+              $('.alert').toggle();
+              setTimeout('window.location.href = "https://localhost/worked.html";',1500);
+            }
+            else($.trim(response) == 'error')
+            {
+              $('#error').toggle();
+              setTimeout(function()
+              {
+                $('#error').toggle();
+              }, 2000);
+            }
+          }
+          });
+          return false;
         });
       </script>
  </body>

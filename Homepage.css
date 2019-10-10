@@ -3,8 +3,9 @@ body
 	margin:0;
 	padding:0;
 	font-family: sans-serif;
-	background-image: url(palmWalk.jpg);
+
 }
+
 
 nav
 {
@@ -80,6 +81,7 @@ h1
 {
 	color:#fff;
 	text-align: center;
+	text-align: star;
 	font-size: 60pt;
 	padding-top: 20%;
 }
@@ -93,3 +95,45 @@ h2
 
 }
 
+body, html {
+	height: 100%;
+	margin: 0;
+  }
+  
+  .bg {
+	/* The image used */
+	background-image: url("palmwalk.jpg");
+  
+	/* Full height */
+	height: 100%; 
+  
+	/* Center and scale the image nicely */
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+  }
+
+ .bgProfile {
+	background-image: url(http://www.bestfunforall.com/getwallpaper1/imgs/Asu%20Sun%20Devil%20Wallpaper%202.jpg);
+	background-repeat: no-repeat;
+	height: 100%;
+	background-size: cover;
+	background-image;
+	background-attachment: fixed;
+}
+
+.profilePicture{
+	border-radius: 50%;
+}
+
+.profileChanges{
+	border: #800000;
+	text-align: left;
+	color: whitesmoke
+}
+
+
+#curator-feed-default-layout
+{
+	padding-top: 20pt;
+}
